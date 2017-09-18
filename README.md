@@ -1,9 +1,11 @@
 # ACME Product/Categories React
 
-- Uses React, React Router, Webpack
+- Node JS, Express, Sequelize, React, React Router, Webpack
 - React components, forms
 - ES6, JSX
 - RESTful API
+
+Deployed on Heroku: [Link](https://acme-products-categories-react.herokuapp.com/)
 
 ## Instructions
 
