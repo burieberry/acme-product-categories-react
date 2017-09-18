@@ -1,6 +1,6 @@
 # ACME Product/Categories React
 
-- Node JS, Express, Sequelize, React, React Router, Webpack
+- Node JS, Express, Sequelize, React, Webpack
 - React components, forms
 - ES6, JSX
 - RESTful API
