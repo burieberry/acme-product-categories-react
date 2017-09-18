@@ -42,7 +42,7 @@ class App extends Component{
         <h1>ACME Product/Categories React</h1>
         <ProductList products={ products } categories={ categories } />
         <ProductForm categories={ categories } onSave={ onSave } />
-        <Summary />
+        <Summary products={ products } categories={ categories } />
       </main>
     )
   }
