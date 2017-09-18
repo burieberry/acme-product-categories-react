@@ -2,12 +2,9 @@ import React from 'react';
 
 const App  = () => {
   return (
-    <header className="container">
+    <div className="container">
       <h1>ACME Product/Categories React</h1>
-    </header>
-    <section>
-      <ProductList />
-    </section>
+    </div>
   )
 };
 
