@@ -53,7 +53,7 @@ conn.sync({ force: true })
     .then(([ foo, foo2, bar, bazz, fooCategory, barCategory ]) => {
       return Promise.all([
         fooCategory.addProduct([ foo, foo2 ]),
-        barCategory.addProduct(bar)
+        barCategory.addProduct([ bar ])
       ]);
     });
   });
