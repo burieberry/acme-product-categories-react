@@ -1,4 +1,11 @@
-import React, { Component } from 'react';
+/*
+  TODO:
+  - refactor product stats
+  - add most expensive product name
+  - handle null cases
+*/
+
+import React from 'react';
 
 const Summary = (props) => {
   const { products, categories } = props;

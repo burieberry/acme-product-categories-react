@@ -1,3 +1,10 @@
+/*
+  TODO:
+  - Update product info (Save button)
+  - Delete product
+  - Save button only active if there's change
+*/
+
 import React, { Component } from 'react';
 
 class ProductList extends Component {

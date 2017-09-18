@@ -1,3 +1,9 @@
+/*
+  TODO:
+    - refactor onChange events into single function
+    - set & clear Category
+*/
+
 import React, { Component } from 'react';
 
 class ProductForm extends Component{
