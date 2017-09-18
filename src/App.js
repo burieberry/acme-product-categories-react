@@ -11,7 +11,7 @@ class App extends Component{
       products: [],
       categories: []
     };
-    this.onProductSave = this.onProductSave.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount() {
@@ -27,22 +27,21 @@ class App extends Component{
     })
   }
 
-  onProductSave(ev) {
-    // console.log(ev)
-    // axios.put(`/api/products/${ product.id }`, product)
-    //   .then(result => axios.get('/api/products'))
-    //   .then(result => this.setState({ name: result.data }))
+  onSave(product) {
+    return axios.post('/api/products', product)
+      .then(result => axios.get('/api/products'))
+      .then(result => this.setState({ products: result.data }))
   }
 
   render() {
     const { products, categories } = this.state;
-    const { onProductSave } = this;
+    const { onSave } = this;
 
     return (
       <main className="container">
         <h1>ACME Product/Categories React</h1>
-        <ProductList products={ products } categories={ categories } onProductSave={ onProductSave } />
-        <ProductForm />
+        <ProductList products={ products } categories={ categories } />
+        <ProductForm categories={ categories } onSave={ onSave } />
         <Summary />
       </main>
     )
