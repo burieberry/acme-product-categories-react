@@ -49,15 +49,18 @@ const Form = ({ product, categories, onChange, onSave, onDelete, name, price, in
           </div>
           )
         }
-
+        <div className="form-group">
           <button className="btn btn-primary btn-block">Save</button>
+        </div>
       </form>
 
-      { product &&
-        <form onSubmit={ onDelete } id={ product.id }>
-          <button className="btn btn-danger btn-block">Delete</button>
-        </form>
-      }
+      <div className="form-group">
+        { product &&
+          <form onSubmit={ onDelete } id={ product.id }>
+            <button className="btn btn-danger btn-block">Delete</button>
+          </form>
+        }
+      </div>
     </div>
   );
 };

@@ -1,9 +1,3 @@
-/*
-  TODO:
-  - Delete product
-  - Save button only active if there's change
-*/
-
 import React, { Component } from 'react';
 import Form from './Form';
 
@@ -30,16 +24,13 @@ class ProductList extends Component {
   }
 
   onSave(ev) {
-    console.log(this.state);
     ev.preventDefault();
     this.props.onUpdate(this.state);
   }
 
   onDelete(ev) {
     ev.preventDefault();
-    this.setState({ id: ev.target.id })
-    console.log(this.state)
-    this.props.onDelete(this.state);
+    this.props.onDelete({ id: ev.target.id })
   }
 
   render() {
