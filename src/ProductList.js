@@ -24,6 +24,7 @@ class ProductList extends Component {
   }
 
   onSave(ev) {
+    console.log(this.state);
     ev.preventDefault();
     this.props.onUpdate(this.state);
   }
