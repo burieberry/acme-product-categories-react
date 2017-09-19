@@ -1,30 +1,53 @@
-/*
-  TODO:
-  - refactor product stats
-  - add most expensive product name
-  - handle null cases
-*/
-
 import React from 'react';
 
 const Summary = (props) => {
   const { products, categories } = props;
 
-  const noCategoryProductsCount = () => {
-    var count = 0;
+  const Categories = () => {
+    let prodsNoCategory = [];
     products.map(product => {
-      return product.category === null ? count++ : count;
+      if (product.category === null) prodsNoCategory.push(product)
     });
-    return count;
-  };
 
-  const CategoryStatItem = ({ category }) => {
     return (
-      <li key={ category.id }>
-        { category.name } has <strong>{ category.products.length }</strong> products.
-      </li>
+      <ul>
+        {
+          categories.map(category => {
+            return (
+              <li key={ category.id }>
+                { category.name } has <strong>{ category.products.length }</strong> products.
+              </li>
+            )
+          })
+        }
+        <li>{ prodsNoCategory.length  } product(s) have no category.</li>
+      </ul>
     );
   };
+
+  const MostExpensive = () => {
+    const product = products.reduce((memo, prod) => {
+        if (prod.price >= memo.price) {
+          memo = prod
+        }
+        return memo;
+      }, { price: 0 });
+
+    return (
+      <span>Most expensive product is <strong>{ product.name }</strong> at { product.price }.</span>
+    );
+  };
+
+  const Stock = () => {
+    let prodsNotInStock = [];
+    products.map(product => {
+      if (!product.inStock) prodsNotInStock.push(product.name);
+    });
+
+    return (
+      <span>Products not in stock are { prodsNotInStock.join(', ') }.</span>
+    )
+  }
 
   return (
     <section className="col-sm-3">
@@ -35,31 +58,9 @@ const Summary = (props) => {
         <div className="panel-body">
           <ul className="list-group">
             <li className="list-group-item">There are <strong>{ products.length }</strong> products.</li>
-            <li className="list-group-item">Categories:
-              <ul>
-                {
-                  categories.map(category => {
-                    return (
-                      <CategoryStatItem key={ category.id } category={ category } />
-                    )
-                  })
-                }
-                <li>{ noCategoryProductsCount() } product(s) have no category.</li>
-              </ul>
-            </li>
-            <li className="list-group-item">Most expensive product is <strong>TK</strong> at {
-              products.reduce((memo, product) => {
-                memo = Math.max(memo, product.price);
-                return memo;
-              }, 0)
-            }.</li>
-            <li className="list-group-item">Products not in stock are {
-              products.map(product => {
-                if (!product.inStock) {
-                  return product.name;
-                }
-              }).join(' ')
-            }.</li>
+            <li className="list-group-item">Categories: <Categories /></li>
+            <li className="list-group-item"><MostExpensive /></li>
+            <li className="list-group-item"><Stock /></li>
           </ul>
         </div>
       </div>
