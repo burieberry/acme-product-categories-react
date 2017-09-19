@@ -14,37 +14,48 @@ class App extends Component{
     this.onSave = this.onSave.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.updateProps = this.updateProps.bind(this);
   }
 
   componentDidMount() {
-    Promise.all([
-      axios.get('/api/products'),
-      axios.get('/api/categories'),
-    ])
-    .then(([ products, categories ]) => {
-      this.setState({
-        products: products.data,
-        categories: categories.data,
-      });
-    })
+    return Promise.all([
+        axios.get('/api/products'),
+        axios.get('/api/categories')
+      ])
+      .then(([ products, categories ]) => {
+        this.setState({
+          products: products.data,
+          categories: categories.data,
+        });
+      })
+  }
+
+  updateProps() {
+    return Promise.all([
+        axios.get('/api/products'),
+        axios.get('/api/categories')
+      ])
+      .then(([ products, categories ]) => {
+        this.setState({
+          products: products.data,
+          categories: categories.data,
+        });
+      })
   }
 
   onSave(product) {
     return axios.post('/api/products', product)
-      .then(result => axios.get('/api/products'))
-      .then(result => this.setState({ products: result.data }))
+      .then(this.updateProps);
   }
 
   onUpdate(product) {
     return axios.put(`/api/products/${ product.id }`, product)
-      .then(result => axios.get('/api/products'))
-      .then(result => this.setState({ products: result.data }))
+      .then(this.updateProps);
   }
 
   onDelete(product) {
     return axios.delete(`/api/products/${ product.id }`, product)
-      .then(result => axios.get('/api/products'))
-      .then(result => this.setState({ products: result.data }))
+      .then(this.updateProps);
   }
 
   render() {
