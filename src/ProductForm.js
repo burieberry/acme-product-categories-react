@@ -46,7 +46,7 @@ class ProductForm extends Component{
       <section className="col-sm-3">
         <div className="panel panel-default">
           <div className="panel-heading">Product Form</div>
-            <Form  { ...this.state } { ...this.props } { ...this } />
+            <Form { ...this.state } { ...this.props } { ...this } />
           </div>
       </section>
     )
