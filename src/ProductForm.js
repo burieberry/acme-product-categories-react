@@ -1,9 +1,3 @@
-/*
-  TODO:
-    - refactor onChange events into single function
-    - set & clear Category
-*/
-
 import React, { Component } from 'react';
 
 class ProductForm extends Component{
@@ -13,30 +7,21 @@ class ProductForm extends Component{
       name: '',
       price: 0,
       inStock: false,
-      category: {}
+      categoryId: null
     };
 
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onPriceChange = this.onPriceChange.bind(this);
-    this.onStockChange = this.onStockChange.bind(this);
-    this.onCategoryChange = this.onCategoryChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
-  onNameChange(ev) {
-    this.setState({ name: ev.target.value });
-  }
+  onChange(ev) {
+    const target = ev.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
 
-  onPriceChange(ev) {
-    this.setState({ price: ev.target.value });
-  }
-
-  onStockChange(ev) {
-    this.setState({ inStock: ev.target.value });
-  }
-
-  onCategoryChange(ev) {
-    this.setState({ category: ev.target.value });
+    this.setState({
+      [name]: value
+    });
   }
 
   onSave(ev) {
@@ -46,15 +31,15 @@ class ProductForm extends Component{
           name: '',
           price: 0,
           inStock: false,
-          category: {}
+          categoryId: null
         })
       })
   }
 
   render() {
     const { categories } = this.props;
-    const { name, price, inStock, category, value } = this.state;
-    const { onNameChange, onPriceChange, onStockChange, onCategoryChange, onSave } = this;
+    const { name, price, inStock, categoryId } = this.state;
+    const { onChange, onSave } = this;
 
     return (
       <section className="col-sm-3">
@@ -66,27 +51,27 @@ class ProductForm extends Component{
             <form onSubmit={ onSave }>
               <div className="form-group">
                 <label>Name</label>
-                <input className="form-control" value={ name } onChange={ onNameChange } />
+                <input className="form-control" name="name" value={ name } onChange={ onChange } />
               </div>
 
               <div className="form-group">
                 <label>Price</label>
-                <input className="form-control" value={ price } type="number" onChange={ onPriceChange } />
+                <input className="form-control" name="price" value={ price } type="number" onChange={ onChange } />
               </div>
 
               <div className="form-group">
                 <label>In Stock</label>
-                <input className="checkbox" type="checkbox" checked={ inStock } onChange={ onStockChange } />
+                <input className="checkbox" name="inStock" checked={ inStock } type="checkbox" onChange={ onChange } />
               </div>
 
               <div className="form-group">
                 <label>Category</label>
-                <select className="form-control" value={ category } onChange={ onCategoryChange }>
+                <select className="form-control" name="categoryId" onChange={ onChange }>
                   <option>--none--</option>
                   {
                     categories.map(cat => {
                       return (
-                        <option key={ cat.id } value={ cat.name }>{ cat.name }</option>
+                        <option key={ cat.id } value={ cat.id }>{ cat.name }</option>
                       )
                     })
                   }

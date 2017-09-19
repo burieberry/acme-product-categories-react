@@ -6,11 +6,30 @@
 */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class ProductList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      product: {}
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+  }
+
+  onChange(ev) {
+    this.setState({ product: ev.target.value });
+  }
+
+  onSave(ev) {
+    ev.preventDefault();
+    this.props.onUpdate(this.state.product);
+  }
+
   render() {
     const { products, categories } = this.props;
-    const { onNameChange, onPriceChange, onStockChange, onCategoryChange, onSave } = this;
+    const { onChange, onSave } = this;
 
     return (
       <section className="col-sm-6">
@@ -22,31 +41,28 @@ class ProductList extends Component {
                   <form onSubmit={ onSave }>
                     <div className="form-group">
                       <label>Name</label>
-                      <input className="form-control" value={ product.name } onChange={ onNameChange } />
+                      <input className="form-control" value={ product.name } />
                     </div>
 
                     <div className="form-group">
                       <label>Price</label>
-                      <input className="form-control" value={ product.price } type="number" onChange={ onPriceChange } />
+                      <input className="form-control" value={ product.price } type="number" />
                     </div>
 
                     <div className="form-group">
                       <label>In Stock</label>
-                      <input className="checkbox" type="checkbox" name="" checked={ product.inStock } onChange={ onStockChange } />
+                      <input className="checkbox" checked={ product.inStock } type="checkbox" />
                     </div>
 
                     <div className="form-group">
                       <label>Category</label>
-                      <select className="form-control" name="">
-                        <option>{ product.category ? product.category.name : '--none--' }</option>
+                      <select className="form-control" name="category" value={ product.category ? product.category.name : '--none--' } >
+                        <option value={ null }>--none--</option>
                         {
                           categories.map(cat => {
                             return (
-                              <option key={ cat.id } onChange={ onCategoryChange }>
-                                {
-                                  product.category  && product.category.name === cat.name ?
-                                  '--none--' : cat.name
-                                }
+                              <option key={ cat.id } value={ cat.name }>
+                                { cat.name }
                               </option>
                             )
                           })

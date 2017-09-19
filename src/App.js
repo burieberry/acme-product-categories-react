@@ -33,14 +33,20 @@ class App extends Component{
       .then(result => this.setState({ products: result.data }))
   }
 
+  onUpdate(product) {
+    return axios.put(`/api/products/${ product.id }`, product)
+      .then(result => axios.get('/api/products/'))
+      .then(result => this.setState({ products: result.data }))
+  }
+
   render() {
     const { products, categories } = this.state;
-    const { onSave } = this;
+    const { onSave, onUpdate } = this;
 
     return (
       <main className="container">
         <h1>ACME Product/Categories React</h1>
-        <ProductList products={ products } categories={ categories } />
+        <ProductList products={ products } categories={ categories } onUpdate={ onUpdate } />
         <ProductForm categories={ categories } onSave={ onSave } />
         <Summary products={ products } categories={ categories } />
       </main>
