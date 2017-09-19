@@ -42,10 +42,10 @@ Category.hasMany(Product);
 conn.sync({ force: true })
   .then(() => {
     return Promise.all([
-      Product.create({ name: 'foo', price: 10 }),
-      Product.create({ name: 'foo 2', price: 20 }),
-      Product.create({ name: 'bar', inStock: false }),
-      Product.create({ name: 'bazz', inStock: false }),
+      Product.create({ name: 'Foo', price: 10 }),
+      Product.create({ name: 'Foo 2', price: 20 }),
+      Product.create({ name: 'Bar', inStock: false }),
+      Product.create({ name: 'Bazz', inStock: false }),
       Category.create({ name: 'Foo Category' }),
       Category.create({ name: 'Bar Category' }),
       Category.create({ name: 'Bazz Category' })
